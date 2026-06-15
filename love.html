@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Love Story ❤️</title>
+    <style>
+        /* --- RESET & BASE STYLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Georgia', serif;
+            background: #0f0f0f;
+            color: white;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        /* --- BACKGROUND FLOATING HEARTS ANIMATION --- */
+        .heart-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 999;
+        }
+        .heart {
+            position: absolute;
+            font-size: 24px;
+            opacity: 0.8;
+            animation: fall linear forwards;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(-50px) scale(0.5);
+                opacity: 0;
+            }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% {
+                transform: translateY(105vh) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* --- MUSIC PLAYER CONTROL --- */
+        .music-player {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(255, 46, 99, 0.9);
+            padding: 15px 20px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(255, 46, 99, 0.4);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .music-btn {
+            background: white;
+            color: #ff2e63;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .music-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .music-info {
+            font-size: 0.9rem;
+            max-width: 150px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* --- SECTION & TEXT ANIMATIONS --- */
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=1200') no-repeat center center/cover;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            color: #ff758c;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+            animation: fadeInDown 1.5s ease-out;
+        }
+
+        p {
+            font-size: 1.5rem;
+            max-width: 600px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            animation: fadeInUp 2s ease-out;
+        }
+
+        /* --- INTERACTIVE BUTTONS --- */
+        button {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            background: #ff2e63;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 46, 99, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(255, 46, 99, 0.6);
+        }
+
+        /* --- GALLERY GRID WITH HOVER EFFECTS --- */
+        .gallery {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        .gallery-card {
+            position: relative;
+            width: 280px;
+            background: white;
+            padding: 15px 15px 25px 15px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+        .gallery-card:hover {
+            transform: translateY(-15px) rotate(3deg);
+            box-shadow: 0 15px 35px rgba(255, 117, 140, 0.4);
+        }
+        
+        .gallery-card img {
+            width: 100%;
+            height: auto;
+            max-height: 300px;
+            object-fit: contain;
+            background-color: #f7f7f7;
+            border-radius: 8px;
+        }
+        
+        .card-caption {
+            color: #333333 !important;
+            font-family: 'Georgia', serif;
+            font-size: 1.1rem !important;
+            margin-top: 15px;
+            font-style: italic;
+            text-align: center;
+        }
+
+        /* --- THE PROPOSAL FINALE BLOCK --- */
+        .proposal {
+            background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+            color: white;
+        }
+        .proposal h1 {
+            color: white;
+            animation: pulse 2s infinite;
+        }
+        .proposal button {
+            background: white;
+            color: #ff2e63;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(255,255,255,0.3);
+        }
+
+        /* --- KEYFRAME ANIMATION LIBRARY --- */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* --- RESPONSIVE DESIGN --- */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            p {
+                font-size: 1.2rem;
+            }
+            .music-player {
+                bottom: 20px;
+                right: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+                width: auto;
+            }
+            .gallery-card {
+                width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="heart-container" id="heartContainer"></div>
+
+    <!-- MUSIC PLAYER CONTROL -->
+    <div class="music-player">
+        <button class="music-btn" id="musicToggle" title="Toggle Music" onclick="toggleMusic()">
+            🎵
+        </button>
+        <div class="music-info">
+            <span id="musicStatus">Click to Play Love Song</span>
+        </div>
+    </div>
+
+    <!-- BACKGROUND AUDIO - LOVE SONG -->
+    <audio id="bgMusic" crossorigin="anonymous" preload="auto">
+        <source src="https://raw.githubusercontent.com/Hadempavankumar123/Our-Journey/main/love-song.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <section class="hero">
+        <h1>Our Love Journey❤️</h1>
+        <p>I built this tiny animation just to remind you how much you mean to me...</p>
+        <button onclick="scrollToSection('story')">Scroll Down 📜</button>
+    </section>
+
+    <section id="story" style="background: #161616;">
+        <h1>How It Started ✨</h1>
+        <p>"I still remember the very first time we spoke. Back then, I had no idea 
+            that a single conversation would completely redefine my life. You went from 
+            a beautiful stranger to the only person I want to talk to before I sleep, 
+            and the first thought on my mind when I wake up. Every laugh we've shared, 
+            every quiet glance is a treasure I hold close to my heart."</p>
+    </section>
+
+    <section>
+        <h1>Our Shared Moments 📸</h1>
+        <p>I fell deeply in love with you</p>
+        <div class="gallery">
+            <div class="gallery-card">
+                <img src="photo1.jpeg" alt="My First Glance🥰">
+                <p class="card-caption">The day our eyes met 🥰</p>
+            </div>
+
+            <div class="gallery-card">
+                <img src="photo2.jpeg" alt="My Favourite pic😍">
+                <p class="card-caption">My Beautiful babe 😍</p>
+            </div>
+
+            <div class="gallery-card">
+                <img src="photo3.jpeg" alt="Our First Meetup">
+                <p class="card-caption">The day my world got infinitely brighter 🌟</p>
+            </div>
+
+            <div class="gallery-card">
+                <img src="photo4.jpeg" alt="Us together😘">
+                <p class="card-caption">More Memories together 😘</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="proposal">
+        <h1>Will You Be My Forever? ❤️</h1>
+        <p>There is nobody else I'd rather share this crazy Journey with you. Please forgive me for my mistakes i have done so far.</p>
+        <button onclick="celebrate()">Nenu Ninnu Premisthunanu❤️</button>
+    </section>
+
+    <script>
+        // --- MUSIC CONTROL FUNCTIONS ---
+        const bgMusic = document.getElementById('bgMusic');
+        const musicToggle = document.getElementById('musicToggle');
+        const musicStatus = document.getElementById('musicStatus');
+        let isMusicPlaying = false;
+
+        // Initialize audio settings
+        bgMusic.volume = 0.7;
+
+        function toggleMusic() {
+            if (!bgMusic) {
+                console.error('Audio element not found');
+                musicStatus.textContent = 'Error: Audio not found';
+                return;
+            }
+
+            if (isMusicPlaying) {
+                bgMusic.pause();
+                musicToggle.textContent = '🔇';
+                musicStatus.textContent = 'Paused';
+                isMusicPlaying = false;
+            } else {
+                bgMusic.currentTime = 0;
+                const playPromise = bgMusic.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise
+                        .then(() => {
+                            musicToggle.textContent = '🎵';
+                            musicStatus.textContent = 'Playing Love Song...';
+                            isMusicPlaying = true;
+                        })
+                        .catch(error => {
+                            console.error('Playback error:', error);
+                            musicStatus.textContent = 'Error: ' + error.message;
+                            musicToggle.textContent = '❌';
+                        });
+                } else {
+                    bgMusic.play();
+                    musicToggle.textContent = '🎵';
+                    musicStatus.textContent = 'Playing Love Song...';
+                    isMusicPlaying = true;
+                }
+            }
+        }
+
+        // Make toggleMusic accessible globally for onclick
+        window.toggleMusic = toggleMusic;
+
+        // Handle audio events
+        bgMusic.addEventListener('play', () => {
+            isMusicPlaying = true;
+            musicToggle.textContent = '🎵';
+            musicStatus.textContent = 'Playing Love Song...';
+            console.log('Music playing');
+        });
+
+        bgMusic.addEventListener('pause', () => {
+            isMusicPlaying = false;
+            musicToggle.textContent = '🔇';
+            musicStatus.textContent = 'Paused';
+            console.log('Music paused');
+        });
+
+        bgMusic.addEventListener('ended', () => {
+            console.log('Music ended, restarting...');
+            bgMusic.currentTime = 0;
+            bgMusic.play().catch(error => {
+                console.log('Auto-replay failed:', error);
+            });
+        });
+
+        bgMusic.addEventListener('error', (e) => {
+            console.error('Audio loading error:', e);
+            console.error('Error code:', bgMusic.error?.code);
+            console.error('Error message:', bgMusic.error?.message);
+            musicStatus.textContent = 'Cannot load music file';
+            musicToggle.textContent = '❌';
+        });
+
+        bgMusic.addEventListener('canplay', () => {
+            console.log('Audio is ready to play');
+        });
+
+        // --- SMOOTH SCROLL FUNCTION ---
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- FALLING HEARTS ANIMATION ---
+        function createHeart() {
+            const container = document.getElementById('heartContainer');
+            if(!container) return;
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '❤️';
+            
+            heart.style.left = Math.random() * 100 + 'vw';
+            const duration = Math.random() * 4 + 4;
+            heart.style.animationDuration = duration + 's';
+            heart.style.fontSize = Math.random() * 15 + 15 + 'px';
+            
+            container.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, duration * 1000);
+        }
+
+        setInterval(createHeart, 400);
+
+        // --- CELEBRATION FUNCTION ---
+        function celebrate() {
+            const burst = setInterval(createHeart, 50);
+            setTimeout(() => clearInterval(burst), 3000);
+
+            // Ensure music is playing at full volume
+            if (bgMusic) {
+                bgMusic.volume = 1;
+                if (!isMusicPlaying) {
+                    bgMusic.play().catch(error => {
+                        console.log('Celebration music playback failed:', error);
+                    });
+                }
+            }
+
+            document.body.innerHTML = `
+                <div class="heart-container" id="heartContainer"></div>
+                <section style="background: linear-gradient(#ff758c, #ff7eb3); height:100vh;">
+                    <h1 style="font-size: 4rem; animation: pulse 1s infinite; color:white;">Yes Babe we love eachother a lot🥹❤️ 🎉</h1>
+                    <p style="font-size: 2rem; margin-top:25px;">My universe got a whole lot brighter being with you. I like ur smile. Always be happy Babe💕. Love you susmi. Ummmmmmmaahhhhhhhh[...]
+                </section>
+            `;
+            
+            setInterval(createHeart, 300);
+        }
+
+        // Make celebrate accessible globally
+        window.celebrate = celebrate;
+
+        // Log when page loads
+        console.log('Page loaded. Audio element:', bgMusic);
+        console.log('Audio source URL:', bgMusic.querySelector('source')?.src);
+
+        // Attempt to load audio on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM Content Loaded');
+            bgMusic.load();
+        });
+    </script>
+</body>
+</html>
